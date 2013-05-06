@@ -1,14 +1,21 @@
 package com.vosto.orders.fragments;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.*;
+import android.app.Fragment;
 
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import com.vosto.R;
+import com.vosto.orders.LineItemAdapter;
+import com.vosto.orders.vos.CustomerVo;
+import com.vosto.orders.vos.OrderVo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,20 +27,20 @@ import com.vosto.R;
 public class OrderListFragment extends Fragment{
 
     private OnItemSelectedListener listener;
+    private LinearLayout lstNewOrders;
+    private View baseView;
+    private LayoutInflater inflater;
+    private View block;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.orderlist_fragment,
+        View baseView = inflater.inflate(R.layout.orderlist_fragment,
                 container, false);
-//        Button button = (Button) view.findViewById(R.id.button1);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                updateDetail();
-//            }
-//        });
-        return view;
+
+        this.lstNewOrders = (LinearLayout) baseView.findViewById(R.id.lstNewOrders);
+        this.inflater = inflater;
+        return baseView;
     }
 
     public interface OnItemSelectedListener {
@@ -47,7 +54,43 @@ public class OrderListFragment extends Fragment{
             listener = (OnItemSelectedListener) activity;
         } else {
             throw new ClassCastException(activity.toString()
-                    + " must implemenet OrderListFragment.OnItemSelectedListener");
+                    + " must implement OrderListFragment.OnItemSelectedListener");
+        }
+    }
+
+    public void updateList(OrderVo[] newOrders){
+
+        Log.d("PREV", "Num new orders: " + newOrders.length);
+
+        for (int i = 0; i < newOrders.length; i++) {
+
+            block = this.inflater.inflate(R.layout.order_item_block, null);
+
+            final OrderVo currentOrder =  newOrders[i];
+
+            Button moveOrder = (Button)block.findViewById(R.id.moveOrder);
+
+            moveOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            TextView orderNumber = (TextView)block.findViewById(R.id.orderNumber);
+            TextView mainCustomerName = (TextView)block.findViewById(R.id.mainCustomerName);
+            TextView mainCustomerDetail = (TextView)block.findViewById(R.id.mainCustomerDetail);
+            CustomerVo currentCustomer = currentOrder.getCustomer();
+
+            orderNumber.setText(currentOrder.getNumber());
+            mainCustomerDetail.setText(currentCustomer.getMobileNumber() + " | " + currentCustomer.getEmail());
+            mainCustomerName.setText(currentCustomer.getName());
+
+            ListView lilist = (ListView) block.findViewById(R.id.lineItemList);
+            lilist.setAdapter(new LineItemAdapter(this.getActivity(), R.layout.line_item_list, currentOrder.getLineItems()));
+
+            this.lstNewOrders.addView(block);
+
         }
     }
 

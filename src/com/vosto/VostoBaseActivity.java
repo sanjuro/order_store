@@ -3,7 +3,6 @@ package com.vosto;
 import java.util.Random;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
