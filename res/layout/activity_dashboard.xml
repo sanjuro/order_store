@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="fill_parent"
+     android:layout_height="match_parent"
+     android:baselineAligned="true"
+     android:background="#ede9e1"
+     android:orientation="vertical" >
+
+    <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/topbar" />
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ede9e1"
+            >
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+            <Button
+                    android:id="@+id/btnMoveProg"
+                    android:layout_width="170dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/listcolor2"
+                    android:drawableLeft="@drawable/iconnewhead"
+                    android:onClick="getNewOrders"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="5dp"
+                    android:text="NEW ORDERS"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#c9c9cf"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            <HorizontalScrollView
+                    android:id="@+id/horizontal_scroll_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="horizontal"
+                    android:scrollbarStyle="outsideInset"
+                    android:paddingTop="10dp">
+
+                <LinearLayout android:id="@+id/lstNewOrders"
+                              android:layout_width="fill_parent"
+                              android:layout_height="fill_parent"
+                              android:orientation="horizontal"/>
+
+            </HorizontalScrollView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

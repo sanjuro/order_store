@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vosto Order Manager</string>
+    <string name="orderTime">Time Until Order Completes</string>
+    <string name="reportsHead">REPORTS</string>
+    <string name="viewButtn">VIEW</string>
+    <string name="onlineSwitch">ONLINE</string>
+    <string name="offlineSwitch">OFFLINE</string>
+    <string name="toDate">TO</string>
+    <string name="fromDate">FROM</string>
+    <string name="orderNumb">Order Number</string>
+    <string name="customer">Customer</string>
+    <string name="numbItems">Number of Items</string>
+    <string name="status">Status</string>
+    <string name="totalItems">Total</string>
+    <string name="orderCancel">Are you sure you want to cancel order</string>
+    <string name="yesButton">YES</string>
+    <string name="noButton">NO</string>
+    <string name="readyButton">READY</string>
+</resources>
