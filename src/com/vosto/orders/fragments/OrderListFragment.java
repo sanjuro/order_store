@@ -95,11 +95,11 @@ public class OrderListFragment extends Fragment{
     }
 
 
-    // May also be triggered from the Activity
-    public void updateDetail() {
-        // Create fake data
-        String newTime = String.valueOf(System.currentTimeMillis());
-        // Send data to Activity
-        listener.onRssItemSelected(newTime);
-    }
+//    // May also be triggered from the Activity
+//    public void updateDetail() {
+//        // Create fake data
+//        String newTime = String.valueOf(System.currentTimeMillis());
+//        // Send data to Activity
+//        listener.onRssItemSelected(newTime);
+//    }
 }
