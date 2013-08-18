@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.joda.money.Money;
+import org.json.JSONArray;
 
-import com.vosto.orders.vos.CustomerVo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class OrderVo implements Serializable {
 	
@@ -22,7 +24,10 @@ public class OrderVo implements Serializable {
 	private Date createdAt;
 	private Date completedAt;
 	private LineItemVo[] line_items;
-	private Money total;
+    public boolean is_delivery;
+    private Money adjustmentTotal;
+    public AddressVo delivery_address;
+	private String total;
     // public ArrayList<LineItemVo> line_items;
 	
 	public OrderVo(){
@@ -101,18 +106,18 @@ public class OrderVo implements Serializable {
 		this.store_id = store_id;
 	}
 
-	public Money getTotal() {
+	public String getTotal() {
 		return total;
 	}
 
-	public void setTotal(Money total) {
+	public void setTotal(String total) {
 		this.total = total;
 	}
 	
-	public void setTotal(double dblTotal){
-		this.total = Money.parse("ZAR " + dblTotal);
-		this.total = this.total.withAmount(dblTotal);
-	}
+//	public void setTotal(double dblTotal){
+//		this.total = Money.parse("ZAR " + dblTotal);
+//		this.total = this.total.withAmount(dblTotal);
+//	}
 
     public LineItemVo[] getLineItems() {
         return line_items;
@@ -120,5 +125,26 @@ public class OrderVo implements Serializable {
 
     public void setLineItems(LineItemVo[] line_items) {
         this.line_items = line_items;
+    }
+
+    public Money getAdjustmentTotal() {
+        return adjustmentTotal;
+    }
+
+    public void setAdjustmentTotal(double dblAdjustmentTotal){
+        this.adjustmentTotal = Money.parse("ZAR " + dblAdjustmentTotal);
+        this.adjustmentTotal = this.adjustmentTotal.withAmount(dblAdjustmentTotal);
+    }
+
+    public void setAdjustmentTotal(Money adjustmentTotal) {
+        this.adjustmentTotal = adjustmentTotal;
+    }
+
+    public AddressVo getDeliveryAddress() {
+        return delivery_address;
+    }
+
+    public void setDeliveryAddress(AddressVo delivery_address) {
+        this.delivery_address = delivery_address;
     }
 }

@@ -15,40 +15,42 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#ede9e1"
+            android:orientation="vertical" >
             >
+
+        <Button
+                android:id="@+id/btnMoveProg"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:background="#f67846"
+                android:drawableLeft="@drawable/iconnewhead"
+                android:onClick="getNewOrders"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:text="NEW ORDERS"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="vertical" >
+                android:paddingTop="15dp"
+                android:orientation="horizontal" >
 
-            <Button
-                    android:id="@+id/btnMoveProg"
-                    android:layout_width="170dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/listcolor2"
-                    android:drawableLeft="@drawable/iconnewhead"
-                    android:onClick="getNewOrders"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="5dp"
-                    android:text="NEW ORDERS"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#c9c9cf"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
 
             <fragment
                     android:id="@+id/listFragment"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="100dp"
+                    android:layout_weight="0.20"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="?android:attr/actionBarSize"
                     class="com.vosto.orders.fragments.OrderListFragment" ></fragment>
 
             <fragment
                     android:id="@+id/detailFragment"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.80"
                     android:layout_height="match_parent"
                     class="com.vosto.orders.fragments.OrderDetailFragment" >
                 <!-- Preview: layout=@layout/details -->

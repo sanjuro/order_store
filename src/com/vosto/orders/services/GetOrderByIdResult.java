@@ -52,9 +52,13 @@ public class GetOrderByIdResult extends RestResult implements IRestResult {
             this.order.setStoreOrderNumber(orderObj.getString("store_order_number"));
             this.order.setTimeToReady(orderObj.getString("time_to_ready"));
 	        this.order.setCreatedAt(dateFormat.parse(orderObj.getString("created_at")));
-	        this.order.setTotal(Money.parse("ZAR " + orderObj.getDouble("total")));
+	        this.order.setTotal(orderObj.getString("total"));
 	        this.order.setStore_id(orderObj.getInt("store_id"));
 	        this.order.setState(orderObj.getString("state"));
+
+            if(!orderObj.isNull("adjustment_total")){
+                this.order.setAdjustmentTotal(Money.parse("ZAR " + orderObj.getDouble("adjustment_total")));
+            }
 	            	
 	         //Add line items:
 	         JSONArray lineItemsArr = orderObj.getJSONArray("line_items");

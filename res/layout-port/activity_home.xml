@@ -1,13 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="horizontal" >
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_gravity="center_horizontal"
+              android:background="#eaedf1"
+              android:orientation="vertical" >
 
-    <fragment
-            android:id="@+id/listFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?android:attr/actionBarSize"
-            class="com.vosto.orders.fragments.OrderListFragment" />
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/loginComponents"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                >
+
+                <include
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        layout="@layout/topbar" />
+
+                <Button
+                        android:id="@+id/lblNewOrders"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="#f67846"
+                        android:onClick="getNewOrders"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="5dp"
+                        android:text="NEW ORDERS"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                <fragment
+                        android:id="@+id/listFragment"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        class="com.vosto.orders.fragments.OrderListFragment" />
+
+            </LinearLayout>
+
+    </FrameLayout>
+
 </LinearLayout>

@@ -5,7 +5,7 @@
 <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/myshape"
+        android:background="#FFFFFF"
          >
 
         <ImageView
@@ -14,38 +14,17 @@
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/logoheader" />
+            android:src="@drawable/logo_small" />
 
         <TextView
             android:id="@+id/headerStoreDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textColor="#FFFFFF"
+            android:textColor="#484848"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right" >
-
-            <Switch
-                android:id="@+id/switch1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center"
-                android:layout_marginRight="5dp"
-                android:checked="true"
-                android:onClick="onSwitchClicked"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp"
-                android:textOff="OFFLINE"
-                android:textOn="ONLINE"
-                android:textSize="18sp"
-                android:thumb="@drawable/switchstates" />
-
-        </LinearLayout>
 
     </LinearLayout>
     </merge>

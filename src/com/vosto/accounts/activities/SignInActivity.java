@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import android.widget.Toast;
 import com.google.android.gcm.GCMRegistrar;
-import com.vosto.DashboardActivity;
 import com.vosto.HomeActivity;
 import com.vosto.R;
 import com.vosto.VostoBaseActivity;
@@ -35,6 +34,7 @@ import com.vosto.utils.ToastExpander;
 public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 
     public static String GCMID = "";
+    private String gcmRegistrationId;
 
 	@Override
     public void onCreate(Bundle args)
@@ -42,16 +42,11 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
         super.onCreate(args);
         setContentView(R.layout.activity_signin);
 
-        GCMRegistrar.checkDevice(this);
-        GCMRegistrar.checkManifest(this);
-        final String regId = GCMRegistrar.getRegistrationId(this);
-        GCMID = regId;
-
-        if (regId.equals("")) {
-            GCMRegistrar.register(this, SENDER_ID);
-        } else {
-            Log.v("GCM", "Already registered");
+        if(!GCMUtils.checkGCMAndAlert(this, false)){
+            return;
         }
+        this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
+        Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
     }
 
 	/**
@@ -100,6 +95,20 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 			return;
 		}
 		if(result instanceof AuthenticateResult){
+
+            /*
+            *  Register the device with GCM if not already registered.
+            *  GCM will respond and the callback in GCMIntentService will be called.
+            */
+            Log.d("GCM", "GCM Registrsion id: " + this.gcmRegistrationId );
+            if(this.gcmRegistrationId != null && this.gcmRegistrationId.equals("")){
+                // GCM is supported, but device has not been registered yet.
+                Log.d("GCM", "Calling gcm register...");
+                GCMRegistrar.register(this, SENDER_ID);
+            }else{
+                Log.d("GCM", "Not registering with gcm");
+            }
+
 			processAuthenticateResult((AuthenticateResult)result);
 		}
 	}

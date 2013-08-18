@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_gravity="center_vertical"
+       android:background="#FFFFFF">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            >
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right" >
+
+            <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_gravity="left"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/logo_tablet" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/headerStoreDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textColor="#484848"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+</merge>

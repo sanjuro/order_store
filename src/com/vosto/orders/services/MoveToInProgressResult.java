@@ -75,7 +75,7 @@ public class MoveToInProgressResult extends RestResult implements IRestResult {
             this.order.setStore_id(jsonObj.getInt("store_id"));
             this.order.setState(jsonObj.getString("state"));
             this.order.setCreatedAt(dateFormat.parse(jsonObj.getString("created_at")));
-            this.order.setTotal(jsonObj.getDouble("total"));
+            this.order.setTotal(jsonObj.getString("total"));
 
 
             JSONArray lineItemsArr = jsonObj.getJSONArray("line_items");

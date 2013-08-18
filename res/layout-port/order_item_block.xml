@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#ffffff"
-              >
-
+              android:layout_width="fill_parent"
+              android:layout_height="500dp"
+              android:background="@android:color/white"
+            >
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -51,30 +49,29 @@
 
             </LinearLayout>
 
-        <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/total" >
+    <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/total" >
 
-            <TextView
-                    android:id="@+id/orderState"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:paddingLeft="14sp"
-                    android:paddingTop="8dp"
-                    android:textSize="20sp"
-                    android:text="NEW"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#39393e"
-                    android:textStyle="bold" />
+        <TextView
+                android:id="@+id/orderState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:paddingLeft="14sp"
+                android:paddingTop="8dp"
+                android:textSize="20sp"
+                android:text="NEW"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#39393e"
+                android:textStyle="bold" />
 
-        </LinearLayout>
-
+    </LinearLayout>
 
             <TextView
                     android:id="@+id/mainCustomerName"
@@ -97,76 +94,74 @@
                     android:textColor="#39393e"
                     android:textSize="14sp" />
 
+    <TextView
+            android:id="@+id/delivMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:text="Collect in Store"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginLeft="20dp"
+            android:textColor="#474747"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
+    <TextView
+            android:id="@+id/delivMethodAddr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:text="39 KLoof Street, Gardens, Cape Townn, 8000"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#474747"
+            android:textSize="20sp" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/total" >
+
+        <TextView
+                android:id="@+id/textDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:paddingLeft="14sp"
+                android:paddingTop="8dp"
+                android:textSize="20sp"
+                android:text="DELIVERY COST"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#39393e"
+                android:textStyle="bold" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="vertical" >
 
             <TextView
-                            android:id="@+id/delivMethod"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="8dp"
-                            android:text="Collect in Store"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:layout_marginLeft="20dp"
-                            android:textColor="#474747"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                    android:id="@+id/delivMethodPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="8dp"
+                    android:text="15.00"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#474747"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
 
-            <TextView
-                            android:id="@+id/delivMethodAddr"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="8dp"
-                            android:text="39 KLoof Street, Gardens, Cape Townn, 8000"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="#474747"
-                            android:textSize="20sp" />
+        </LinearLayout>
 
-            <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/total" >
-
-                <TextView
-                        android:id="@+id/textDelivery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:paddingLeft="14sp"
-                        android:paddingTop="8dp"
-                        android:textSize="20sp"
-                        android:text="DELIVERY COST"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="#39393e"
-                        android:textStyle="bold" />
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:orientation="vertical" >
-
-                    <TextView
-                            android:id="@+id/delivMethodPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="8dp"
-                            android:text="15.00"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="#474747"
-                            android:textSize="20sp"
-                            android:textStyle="bold"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+    </LinearLayout>
 
             <LinearLayout
                     android:id="@+id/lineItemList"
@@ -178,7 +173,7 @@
 
             <Button
                     android:id="@+id/moveOrder"
-                    android:layout_width="400dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="45dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -194,7 +189,7 @@
 
             <Button
                     android:id="@+id/cancelOrder"
-                    android:layout_width="400dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/cancelbutt"

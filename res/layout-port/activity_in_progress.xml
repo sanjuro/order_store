@@ -1,5 +1,5 @@
 <LinearLayout
-        android:layout_width="410dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="#FFFFFF"
@@ -7,50 +7,51 @@
         >
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="10dp" >
 
 
         <LinearLayout
                 android:id="@+id/timeScrollerHolder"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingRight="15dp"
                 >
 
-            <Button
-                    android:id="@+id/upButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/drawable_up" />
-
             <EditText
-                    android:id="@+id/numberEditText"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/sliderValue"
+                    android:paddingTop="10dip"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/middle"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:text="50%"
+                    android:textSize="16sp"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:gravity="center"
                     android:inputType="number" >
                 <requestFocus />
             </EditText>
 
-            <Button
-                    android:id="@+id/downButton"
-                    android:layout_width="wrap_content"
+            <SeekBar
+                    android:id="@+id/slider"
+                    android:max="60"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/drawable_down"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="26dp"
                     />
+
+
         </LinearLayout>
 
         <LinearLayout
                 android:id="@+id/posOrderNumnberHolder"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_toRightOf="@+id/timeScrollerHolder"
@@ -88,20 +89,20 @@
             android:textColor="#000000" />
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:paddingRight="15dp"
             android:paddingBottom="10dp"
+            android:orientation="vertical"
             >
 
         <Button
                 android:id="@+id/confMoveProg"
-                android:layout_width="190dp"
+                android:layout_width="fill_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/progbutt"
+                android:background="#f67846"
                 android:drawableLeft="@drawable/iconprogwhite"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -114,13 +115,14 @@
 
         <Button
                 android:id="@+id/confCancel"
-                android:layout_width="100dp"
+                android:layout_width="fill_parent"
                 android:layout_height="55dp"
-                android:layout_marginLeft="60dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/cancelbutt"
+                android:drawableLeft="@drawable/iconcancelgrey"
                 android:drawablePadding="5dp"
-                android:paddingLeft="7dp"
+                android:paddingLeft="5dp"
                 android:paddingRight="7dp"
                 android:text="CANCEL "
                 android:textColor="#8c8c8c"

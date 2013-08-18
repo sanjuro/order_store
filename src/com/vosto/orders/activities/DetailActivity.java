@@ -1,25 +1,24 @@
-package com.vosto.orders.fragments;
+package com.vosto.orders.activities;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import com.vosto.R;
+import com.vosto.VostoBaseActivity;
 import com.vosto.orders.LineItemAdapter;
-import com.vosto.orders.activities.InProgressActivity;
 import com.vosto.orders.vos.CustomerVo;
-import com.vosto.orders.vos.LineItemVo;
 import com.vosto.orders.vos.OrderVo;
+import com.vosto.orders.vos.LineItemVo;
+
 import com.vosto.utils.MoneyUtils;
 import com.vosto.utils.StringUtils;
 
@@ -27,24 +26,37 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class OrderDetailFragment extends Fragment {
+public class DetailActivity extends VostoBaseActivity {
 
-    private View baseView;
     private LayoutInflater inflater;
     private LinearLayout detailOrder;
     private View block;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        this.baseView = inflater.inflate(R.layout.orderdetail_fragment,container, false);
-        this.detailOrder = (LinearLayout) baseView.findViewById(R.id.detailOrder);
-        this.inflater = inflater;
-        return baseView;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.inflater = getLayoutInflater();
+
+        // Need to check if Activity has been switched to landscape mode
+        // If yes, finished and go back to the start Activity
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            finish();
+            return;
+        }
+        setContentView(R.layout.activity_detail);
+
+        this.detailOrder = (LinearLayout) findViewById(R.id.detailOrder);
+
+        OrderVo order = (OrderVo) getIntent().getSerializableExtra("order");
+        if (order != null) {
+            setOrder(order);
+        }
     }
 
     public void setOrder(OrderVo order) {
-        Log.d("ORD","Got Order Detail # " + order.getNumber());
+        Log.d("ORD", "Got Order Detail Number " + order.getNumber());
+
         block = this.inflater.inflate(R.layout.order_item_block, null);
 
         final OrderVo currentOrder = order;
@@ -54,18 +66,18 @@ public class OrderDetailFragment extends Fragment {
         moveOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InProgressActivity.class);
+                Intent intent = new Intent(getContext(), InProgressActivity.class);
                 intent.putExtra("order", currentOrder);
                 startActivity(intent);
             }
         });
 
-        Button cancelOrder = (Button)block.findViewById(R.id.moveOrder);
+        Button cancelOrder = (Button)block.findViewById(R.id.cancelOrder);
 
         cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InProgressActivity.class);
+                Intent intent = new Intent(getContext(), InProgressActivity.class);
                 intent.putExtra("order", currentOrder);
                 startActivity(intent);
             }
@@ -97,10 +109,6 @@ public class OrderDetailFragment extends Fragment {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy");
         format.setTimeZone(TimeZone.getTimeZone("GMT+4"));
 
-        orderNumber.setText(currentOrder.getNumber());
-        dateOrdered.setText("Ordered at: " + format.format(order.getCreatedAt()));
-        dateOrdered.setTypeface(null, Typeface.ITALIC);
-
         //Show the correct status badge based on the order state:
         if(order.getState().toLowerCase(Locale.getDefault()).equals("ready")){
             orderState.setText("READY");
@@ -116,9 +124,16 @@ public class OrderDetailFragment extends Fragment {
             orderState.setText("NEW");
         }
 
+        orderNumber.setText(currentOrder.getNumber());
+        dateOrdered.setText("Ordered at: " + format.format(order.getCreatedAt()));
         mainCustomerDetail.setText(currentCustomer.getMobileNumber() + " | " + currentCustomer.getEmail());
         mainCustomerName.setText(currentCustomer.getName());
+
         totalAmount.setText(currentOrder.getTotal());
+        // totalAmount.setText(MoneyUtils.getRandString(currentOrder.getTotal()));
+
+//        LinearLayout lilist = (LinearLayout) block.findViewById(R.id.lineItemList);
+//        lilist.setAdapter(new LineItemAdapter(this, R.layout.line_item_list, currentOrder.getLineItems()));
 
         LinearLayout list = (LinearLayout) block.findViewById(R.id.lineItemList);
         for (int i=0; i < currentOrder.getLineItems().length; i++) {
@@ -150,8 +165,6 @@ public class OrderDetailFragment extends Fragment {
             list.addView(vi);
         }
 
-        this.detailOrder.removeAllViews();
         this.detailOrder.addView(block);
     }
 }
-

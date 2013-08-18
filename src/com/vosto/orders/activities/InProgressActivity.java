@@ -13,14 +13,15 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.vosto.R;
 import com.vosto.VostoBaseActivity;
-import com.vosto.DashboardActivity;
+import com.vosto.HomeActivity;
 import com.vosto.orders.services.MoveToInProgressService;
 import com.vosto.services.OnRestReturn;
 import com.vosto.services.RestResult;
 
 import com.vosto.orders.vos.OrderVo;
 
-import static com.vosto.utils.CommonUtilities.SERVER_URL;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,9 +30,12 @@ import static com.vosto.utils.CommonUtilities.SERVER_URL;
  * Time: 5:48 PM
  * To change this template use File | Settings | File Templates.
  */
-public class InProgressActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener {
+public class InProgressActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener, OnSeekBarChangeListener {
 
     private OrderVo order;
+    private SeekBar slider;
+    private int mintime = 5;
+    private String unit = " min";
 
     @Override
     public void onCreate(Bundle args)
@@ -42,61 +46,22 @@ public class InProgressActivity extends VostoBaseActivity implements OnRestRetur
         this.order = (OrderVo)getIntent().getSerializableExtra("order");
 
         //set click states for the up and down buttons
-        final Button up = (Button) findViewById(R.id.upButton);
-        final Button down = (Button) findViewById(R.id.downButton);
-        final TextView txt = (TextView) findViewById(R.id.numberEditText);
+        final TextView txt = (TextView) findViewById(R.id.sliderValue);
         final EditText pos = (EditText) findViewById(R.id.posOrderNumber);
         pos.clearFocus();
-        final int increment = 5;
-        final int maxtime = 60;
-        final int mintime = 5;
-        final String unit = " min";
+
 
         txt.setText(String.valueOf(mintime)+unit);
 
-        up.setOnClickListener(new OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //increase the time
-                CharSequence s = txt.getText();
-                String showntime = s.toString();
-                showntime = showntime.substring( 0, (showntime.length()-unit.length()) );
-                int time = Integer.parseInt(showntime);
-                time += increment;
-                if (time>maxtime) {
-                    time = maxtime;
-                }
-                showntime = String.valueOf(time)+unit;
-                txt.setText(showntime);
-            }
-        });
-
-        down.setOnClickListener(new OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //reduce the time
-                CharSequence s = txt.getText();
-                String showntime = s.toString();
-                showntime = showntime.substring( 0, (showntime.length()-unit.length()) );
-                int time = Integer.parseInt(showntime);
-                time -= increment;
-                if (time<mintime) {
-                    time = mintime;
-                }
-                showntime = String.valueOf(time)+unit;
-                txt.setText(showntime);
-            }
-        });
-
         Button confMoveProg = (Button)findViewById(R.id.confMoveProg);
         confMoveProg.setOnClickListener(new OnClickListener() {
-
             public void onClick(View v) {
                 inProgressPressed(v);
             }
         });
 
-
+        this.slider = (SeekBar)findViewById(R.id.slider);
+        this.slider.setOnSeekBarChangeListener(this);
     }
 
     /**
@@ -112,7 +77,7 @@ public class InProgressActivity extends VostoBaseActivity implements OnRestRetur
         Toast toast = Toast.makeText(getApplicationContext(), text, duration);
         toast.show();
 
-        Intent intent = new Intent(this, DashboardActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
@@ -133,7 +98,7 @@ public class InProgressActivity extends VostoBaseActivity implements OnRestRetur
     }
 
     public void inProgressPressed(View v){
-        EditText numberEditText = (EditText)findViewById(R.id.numberEditText);
+        EditText numberEditText = (EditText)findViewById(R.id.sliderValue);
         EditText posOrderNumber = (EditText)findViewById(R.id.posOrderNumber);
 
         String timeToReady = numberEditText.getText().toString().trim();
@@ -150,5 +115,21 @@ public class InProgressActivity extends VostoBaseActivity implements OnRestRetur
         service.setTimeToReady(timeReady);
         service.setStoreOrderNumber(storeOrderNumber);
         service.execute();
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar v, int progress, boolean isUser) {
+        EditText numberEditText = (EditText)findViewById(R.id.sliderValue);
+        numberEditText.setText(String.valueOf(progress)+unit);
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        // TODO Auto-generated method stub
     }
 }

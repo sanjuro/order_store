@@ -22,6 +22,7 @@ import android.util.Log;
 
 import com.vosto.orders.vos.LineItemVo;
 import com.vosto.orders.vos.OrderVo;
+import com.vosto.orders.vos.AddressVo;
 import com.vosto.services.IRestResult;
 import com.vosto.services.RestResult;
 
@@ -71,7 +72,7 @@ public class GetNewOrdersResult extends RestResult implements IRestResult {
                     currentOrder.setStoreOrderNumber(currentObj.getString("store_order_number"));
                     currentOrder.setTimeToReady(currentObj.getString("time_to_ready"));
                     currentOrder.setCreatedAt(dateFormat.parse(currentObj.getString("created_at")));
-                    currentOrder.setTotal(Money.parse("ZAR " + currentObj.getDouble("total")));
+                    currentOrder.setTotal(currentObj.getString("total"));
                     currentOrder.setStore_id(currentObj.getInt("store_id"));
                     currentOrder.setState(currentObj.getString("state"));
 
@@ -82,6 +83,10 @@ public class GetNewOrdersResult extends RestResult implements IRestResult {
                     currentCustomer.setMobileNumber(currentUser.getString("mobile_number"));
                     currentCustomer.setEmail(currentUser.getString("email"));
                     currentOrder.setCustomer(currentCustomer);
+
+                    if(!currentObj.isNull("adjustment_total")){
+                        currentOrder.setAdjustmentTotal(Money.parse("ZAR " + currentObj.getDouble("adjustment_total")));
+                    }
 
                     // Add line items:
                     JSONArray lineItemsArr = currentObj.getJSONArray("line_items");
@@ -101,6 +106,24 @@ public class GetNewOrdersResult extends RestResult implements IRestResult {
                         lineItem.setVariant_id(lineItemObj.getInt("variant_id"));
                         lineItems[i] = lineItem;
                     }
+
+                    // Add Address
+                    // Delivery Address:
+                    if(!currentObj.isNull("address")){
+                        AddressVo address = new AddressVo();
+                        JSONObject addressObj = currentObj.getJSONObject("address");
+                        address.setAddress1(addressObj.getString("address1"));
+                        address.setAddress2(addressObj.getString("address2"));
+                        address.setSuburb(addressObj.getString("suburb"));
+                        address.setSuburb_id(!addressObj.isNull("suburb_id") ? addressObj.getInt("suburb_id") : 1);
+                        address.setCity(addressObj.getString("city"));
+                        address.setState(addressObj.getString("state"));
+                        address.setCountry(addressObj.getString("country"));
+                        address.setZipcode(addressObj.getString("zip"));
+                        currentOrder.setDeliveryAddress(address);
+                    }
+
+
 
                     currentOrder.setLineItems(lineItems);
 

@@ -10,6 +10,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
+        <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_gravity="left"
+                android:adjustViewBounds="true"
+                android:src="@drawable/logo_tablet" />
+
         <LinearLayout
                 android:id="@+id/loginComponents"
                 android:layout_width="320dp"
@@ -21,13 +29,14 @@
                     android:id="@+id/loginUsernameField"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:background="@drawable/loginflds"
                     android:drawableLeft="@drawable/iconusername"
                     android:drawablePadding="6dp"
-                    android:hint="  USERNAME"
+                    android:hint="  Username"
                     android:paddingLeft="4dp"
-                    android:textColor="#202020" >
+                    android:textColor="#818183" >
 
                 <requestFocus />
             </EditText>
@@ -36,19 +45,23 @@
                     android:id="@+id/loginPasswordField"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:background="@drawable/loginflds"
                     android:drawableLeft="@drawable/iconpin"
                     android:drawablePadding="6dp"
-                    android:hint=" PIN"
+                    android:hint=" Pin"
                     android:inputType="textPassword"
                     android:paddingLeft="6dp"
-                    android:textColor="#202020" />
+                    android:textColor="#818183" />
 
             <Button
                     android:id="@+id/buttonlog"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:background="#f67846"
                     android:drawableLeft="@drawable/iconlogin"
                     android:drawablePadding="10dp"
@@ -59,7 +72,6 @@
                     android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
         </LinearLayout>
 
         <ImageView
@@ -70,13 +82,6 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/biglogo" />
 
-        <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/logo_tablet" />
 
     </FrameLayout>
 

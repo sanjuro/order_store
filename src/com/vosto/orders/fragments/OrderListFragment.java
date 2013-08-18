@@ -10,11 +10,8 @@ import android.widget.*;
 import android.app.Fragment;
 
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import com.vosto.R;
-import com.vosto.orders.LineItemAdapter;
-import com.vosto.orders.vos.CustomerVo;
 import com.vosto.orders.vos.OrderVo;
 
 /**
@@ -35,16 +32,11 @@ public class OrderListFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View baseView = inflater.inflate(R.layout.orderlist_fragment,
-                container, false);
-
+        this.baseView = inflater.inflate(R.layout.orderlist_fragment, container, false);
         this.lstNewOrders = (LinearLayout) baseView.findViewById(R.id.lstNewOrders);
         this.inflater = inflater;
-        return baseView;
-    }
 
-    public interface OnItemSelectedListener {
-        public void onRssItemSelected(String link);
+        return baseView;
     }
 
     @Override
@@ -58,48 +50,41 @@ public class OrderListFragment extends Fragment{
         }
     }
 
+    public interface OnItemSelectedListener {
+        public void onOrderItemSelected(OrderVo order);
+    }
+
+    // May also be triggered from the Activity
+    public void updateDetail(OrderVo order) {
+        // Send data to Activity
+        listener.onOrderItemSelected(order);
+    }
+
     public void updateList(OrderVo[] newOrders){
 
-        Log.d("PREV", "Num new orders: " + newOrders.length);
-
+        this.lstNewOrders.removeAllViews();
         for (int i = 0; i < newOrders.length; i++) {
 
-            block = this.inflater.inflate(R.layout.order_item_block, null);
+            block = this.inflater.inflate(R.layout.order_item_list, null);
 
-            final OrderVo currentOrder =  newOrders[i];
+            final OrderVo currentOrder = newOrders[i];
 
-            Button moveOrder = (Button)block.findViewById(R.id.moveOrder);
+            TextView orderNumber = (TextView)block.findViewById(R.id.orderNumber);
 
-            moveOrder.setOnClickListener(new View.OnClickListener() {
+            Button viewOrder = (Button)block.findViewById(R.id.viewOrder);
+
+            viewOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    updateDetail(currentOrder);
                 }
             });
 
-            TextView orderNumber = (TextView)block.findViewById(R.id.orderNumber);
-            TextView mainCustomerName = (TextView)block.findViewById(R.id.mainCustomerName);
-            TextView mainCustomerDetail = (TextView)block.findViewById(R.id.mainCustomerDetail);
-            CustomerVo currentCustomer = currentOrder.getCustomer();
-
             orderNumber.setText(currentOrder.getNumber());
-            mainCustomerDetail.setText(currentCustomer.getMobileNumber() + " | " + currentCustomer.getEmail());
-            mainCustomerName.setText(currentCustomer.getName());
-
-            ListView lilist = (ListView) block.findViewById(R.id.lineItemList);
-            lilist.setAdapter(new LineItemAdapter(this.getActivity(), R.layout.line_item_list, currentOrder.getLineItems()));
-
             this.lstNewOrders.addView(block);
-
         }
-    }
+
+   }
 
 
-//    // May also be triggered from the Activity
-//    public void updateDetail() {
-//        // Create fake data
-//        String newTime = String.valueOf(System.currentTimeMillis());
-//        // Send data to Activity
-//        listener.onRssItemSelected(newTime);
-//    }
 }

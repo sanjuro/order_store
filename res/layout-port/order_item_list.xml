@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              android:background="@drawable/border"
+            >
+
+
+             <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="#ffffff"
+                    android:padding="10dp">
+
+                <TextView
+                        android:id="@+id/orderNumber"
+                        android:layout_width="130dp"
+                        android:layout_weight="0.80"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="1dp"
+                        android:text="R12341234"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#f67846"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                <Button
+                        android:id="@+id/viewOrder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.80"
+                        android:layout_alignParentRight="true"
+                        android:text="view"
+                        />
+
+            </LinearLayout>
+
+
+</LinearLayout>

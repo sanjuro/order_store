@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import com.vosto.orders.activities.DetailActivity;
 import com.vosto.orders.fragments.OrderListFragment;
 import com.vosto.orders.fragments.OrderDetailFragment;
 import com.vosto.orders.services.GetNewOrdersResult;
@@ -28,6 +29,7 @@ import android.content.DialogInterface.OnDismissListener;
 public class HomeActivity extends VostoBaseActivity  implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener, OrderListFragment.OnItemSelectedListener{
 
     private static OrderVo[] newOrders;
+    private LinearLayout lstNewOrders;
     protected static Dialog d;
 
     @Override
@@ -35,15 +37,30 @@ public class HomeActivity extends VostoBaseActivity  implements OnRestReturn, On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        initialize();
+        TextView headerStoreDetails = (TextView) findViewById(R.id.headerStoreDetails);
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        String userName = settings.getString("userName", "");
+
+        headerStoreDetails.setText("Signed In as: " + userName);
+
+        // initialize();
+        fetchNewOrders();
     }
 
     @Override
-    public void onRssItemSelected(String link) {
+    public void onOrderItemSelected(OrderVo order) {
         OrderDetailFragment detailFragment = (OrderDetailFragment) getFragmentManager()
                 .findFragmentById(R.id.detailFragment);
+
         if (detailFragment != null && detailFragment.isInLayout()) {
-            detailFragment.setText(link);
+            detailFragment.setOrder(order);
+        } else {
+            Intent intent = new Intent(getApplicationContext(),
+                    DetailActivity.class);
+            intent.putExtra("order", order);
+            startActivity(intent);
+
         }
     }
 
@@ -88,8 +105,8 @@ public class HomeActivity extends VostoBaseActivity  implements OnRestReturn, On
             if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
                 this.pleaseWaitDialog.dismiss();
             }
-            GetOrderByIdService service = new GetOrderByIdService(this, this, getIntent().getIntExtra("order_id", -1));
-            service.execute();
+            Log.d("STO","Reload Orders");
+            fetchNewOrders();
         }else{
             // We have no specific order to display. Just show the new orders list:
             this.newOrders = new OrderVo[0];
@@ -117,9 +134,7 @@ public class HomeActivity extends VostoBaseActivity  implements OnRestReturn, On
     }
 
     public void getNewOrders(View v) {
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-        finish();
+        fetchNewOrders();
     }
 
     @Override
