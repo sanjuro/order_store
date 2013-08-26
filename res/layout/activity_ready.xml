@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:android1="http://schemas.android.com/apk/res/android"
+              android1:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android1:layout_gravity="center_vertical|center_horizontal"
+              android:orientation="vertical"
+              android1:background="#ffffff"
+              android1:padding="20dp">
+
+    <LinearLayout
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_gravity="center_vertical"
+            android1:orientation="vertical">
+
+        <TextView
+                android1:id="@+id/readyAreSure"
+                android1:layout_width="fill_parent"
+                android1:layout_height="fill_parent"
+                android1:layout_gravity="center"
+                android1:gravity="center"
+                android1:text="@string/orderReady"
+                android1:textAppearance="?android:attr/textAppearanceMedium"
+                android1:textColor="#39393e"
+                android1:textSize="20sp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_marginTop="50dp">
+
+        <Button
+                android:id="@+id/readyButton"
+                android:layout_width="120dp"
+                android:layout_height="55dp"
+                android1:layout_gravity="center_vertical"
+                android1:layout_marginRight="100dp"
+                android:background="#f67846"
+                android:drawableLeft="@drawable/iconprogwhite"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android1:text="@string/yesButton"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

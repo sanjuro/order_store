@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import com.vosto.orders.vos.AddressVo;
 import org.joda.money.Money;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +20,7 @@ import com.vosto.services.RestResult;
 
 public class GetOrderByIdResult extends RestResult implements IRestResult {
 	
-	private OrderVo order;
+	 private OrderVo order;
 	
 	 public GetOrderByIdResult(){
 		 super();
@@ -52,7 +53,7 @@ public class GetOrderByIdResult extends RestResult implements IRestResult {
             this.order.setStoreOrderNumber(orderObj.getString("store_order_number"));
             this.order.setTimeToReady(orderObj.getString("time_to_ready"));
 	        this.order.setCreatedAt(dateFormat.parse(orderObj.getString("created_at")));
-	        this.order.setTotal(orderObj.getString("total"));
+	        this.order.setTotal(orderObj.getDouble("total"));
 	        this.order.setStore_id(orderObj.getInt("store_id"));
 	        this.order.setState(orderObj.getString("state"));
 
@@ -76,8 +77,24 @@ public class GetOrderByIdResult extends RestResult implements IRestResult {
 	    		 lineItem.setSpecialInstructions(lineItemObj.getString("special_instructions"));
 	    		 lineItem.setVariant_id(lineItemObj.getInt("variant_id"));
 	    		 lineItems[i] = lineItem;
-	    	 }		
+	    	 }
+
 	    	this.order.setLineItems(lineItems);
+
+            // Delivery Address:
+            if(!orderObj.isNull("address")){
+                AddressVo address = new AddressVo();
+                JSONObject addressObj = orderObj.getJSONObject("address");
+                address.setAddress1(addressObj.getString("address1"));
+                address.setAddress2(addressObj.getString("address2"));
+                address.setSuburb(addressObj.getString("suburb"));
+                address.setSuburb_id(!addressObj.isNull("suburb_id") ? addressObj.getInt("suburb_id") : 1);
+                address.setCity(addressObj.getString("city"));
+                address.setState(addressObj.getString("state"));
+                address.setCountry(addressObj.getString("country"));
+                address.setZipcode(addressObj.getString("zip"));
+                this.order.setDeliveryAddress(address);
+            }
 			
 	    	return true;
 		}catch(JSONException e){

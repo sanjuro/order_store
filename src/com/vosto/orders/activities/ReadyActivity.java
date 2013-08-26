@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.vosto.R;
 import com.vosto.VostoBaseActivity;
 import com.vosto.HomeActivity;
-import com.vosto.orders.services.MoveToInProgressService;
+import com.vosto.orders.services.MoveToReadyService;
 import com.vosto.services.OnRestReturn;
 import com.vosto.services.RestResult;
 
@@ -28,7 +28,7 @@ import com.vosto.orders.vos.OrderVo;
  * Time: 5:48 PM
  * To change this template use File | Settings | File Templates.
  */
-public class InProgressActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener {
+public class ReadyActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener {
 
     private OrderVo order;
     private int mintime = 35;
@@ -38,21 +38,14 @@ public class InProgressActivity extends VostoBaseActivity implements OnRestRetur
     public void onCreate(Bundle args)
     {
         super.onCreate(args);
-        setContentView(R.layout.activity_in_progress);
+        setContentView(R.layout.activity_ready);
 
         this.order = (OrderVo)getIntent().getSerializableExtra("order");
 
-        //set click states for the up and down buttons
-        final EditText timeToReady = (EditText) findViewById(R.id.timeToReady);
-        final EditText posOrderNumber = (EditText) findViewById(R.id.posOrderNumber);
-        timeToReady.clearFocus();
-
-        timeToReady.setText(String.valueOf(mintime));
-
-        Button confMoveProg = (Button)findViewById(R.id.confMoveProg);
-        confMoveProg.setOnClickListener(new OnClickListener() {
+        Button readyButton = (Button)findViewById(R.id.readyButton);
+        readyButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                inProgressPressed(v);
+                readyPressed(v);
             }
         });
     }
@@ -90,20 +83,17 @@ public class InProgressActivity extends VostoBaseActivity implements OnRestRetur
 
     }
 
-    public void inProgressPressed(View v){
+    public void readyPressed(View v){
         EditText numberEditText = (EditText)findViewById(R.id.timeToReady);
         EditText posOrderNumber = (EditText)findViewById(R.id.posOrderNumber);
-
-        String timeToReady = numberEditText.getText().toString().trim();
-        String storeOrderNumber = posOrderNumber.getText().toString().trim();
 
         OrderVo order = (OrderVo)getIntent().getSerializableExtra("order");
         Log.d("ORDER", "Order ID " + order.getId());
         //Make the REST call:
-        MoveToInProgressService service = new MoveToInProgressService(this, this, order.getId());
+        MoveToReadyService service = new MoveToReadyService(this, this, order.getId());
         service.setOrderId(order.getId());
-        service.setTimeToReady(timeToReady);
-        service.setStoreOrderNumber(storeOrderNumber);
+        service.setTimeToReady(order.getTimeToReady());
+        service.setStoreOrderNumber(order.getStoreOrderNumber());
         service.execute();
     }
 

@@ -13,6 +13,7 @@
     <string name="numbItems">Number of Items</string>
     <string name="status">Status</string>
     <string name="totalItems">Total</string>
+    <string name="orderReady">Are you sure you want to move order</string>
     <string name="orderCancel">Are you sure you want to cancel order</string>
     <string name="yesButton">YES</string>
     <string name="noButton">NO</string>

@@ -21,13 +21,15 @@ public class OrderVo implements Serializable {
 	private String state;
     private String time_to_ready;
 	private int store_id;
+    private String store_name;
+    private String store_contact;
 	private Date createdAt;
 	private Date completedAt;
 	private LineItemVo[] line_items;
     public boolean is_delivery;
     private Money adjustmentTotal;
     public AddressVo delivery_address;
-	private String total;
+	private Money total;
     // public ArrayList<LineItemVo> line_items;
 	
 	public OrderVo(){
@@ -106,12 +108,29 @@ public class OrderVo implements Serializable {
 		this.store_id = store_id;
 	}
 
-	public String getTotal() {
+    public String getStoreName() {
+        return store_name;
+    }
+
+    public void setStoreName(String store_name) {
+        this.store_name = store_name;
+    }
+
+    public String getStoreContact() {
+        return store_contact;
+    }
+
+    public void setStoreContact(String store_contact) {
+        this.store_contact = store_contact;
+    }
+
+	public Money getTotal() {
 		return total;
 	}
 
-	public void setTotal(String total) {
-		this.total = total;
+	public void setTotal(double dblTotal) {
+        this.total = Money.parse("ZAR " + dblTotal);
+        this.total = this.total.withAmount(dblTotal);
 	}
 	
 //	public void setTotal(double dblTotal){

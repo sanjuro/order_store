@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.vosto.R;
 import com.vosto.VostoBaseActivity;
 import com.vosto.orders.LineItemAdapter;
+import com.vosto.orders.services.MoveToReadyService;
 import com.vosto.orders.vos.CustomerVo;
 import com.vosto.orders.vos.OrderVo;
 import com.vosto.orders.vos.LineItemVo;
@@ -72,18 +73,31 @@ public class DetailActivity extends VostoBaseActivity {
             }
         });
 
+        Button readyOrder = (Button)block.findViewById(R.id.readyOrder);
+
+        readyOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ReadyActivity.class);
+                intent.putExtra("order", currentOrder);
+                startActivity(intent);
+            }
+        });
+
         Button cancelOrder = (Button)block.findViewById(R.id.cancelOrder);
 
         cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), InProgressActivity.class);
+                Intent intent = new Intent(getContext(), CancelOrderActivity.class);
                 intent.putExtra("order", currentOrder);
                 startActivity(intent);
             }
         });
 
         TextView orderNumber = (TextView)block.findViewById(R.id.orderNumber);
+        TextView storeName = (TextView)block.findViewById(R.id.storeName);
+        TextView storeContact = (TextView)block.findViewById(R.id.storeContact);
         TextView orderState  = (TextView)block.findViewById(R.id.orderState);
         TextView dateOrdered = (TextView)block.findViewById(R.id.dateOrdered);
         TextView mainCustomerName = (TextView)block.findViewById(R.id.mainCustomerName);
@@ -125,12 +139,14 @@ public class DetailActivity extends VostoBaseActivity {
         }
 
         orderNumber.setText(currentOrder.getNumber());
+        storeName.setText(currentOrder.getStoreName());
+        storeContact.setText(currentOrder.getStoreContact());
         dateOrdered.setText("Ordered at: " + format.format(order.getCreatedAt()));
         mainCustomerDetail.setText(currentCustomer.getMobileNumber() + " | " + currentCustomer.getEmail());
         mainCustomerName.setText(currentCustomer.getName());
 
-        totalAmount.setText(currentOrder.getTotal());
-        // totalAmount.setText(MoneyUtils.getRandString(currentOrder.getTotal()));
+        // totalAmount.setText(currentOrder.getTotal());
+        totalAmount.setText(MoneyUtils.getRandString(currentOrder.getTotal()));
 
 //        LinearLayout lilist = (LinearLayout) block.findViewById(R.id.lineItemList);
 //        lilist.setAdapter(new LineItemAdapter(this, R.layout.line_item_list, currentOrder.getLineItems()));

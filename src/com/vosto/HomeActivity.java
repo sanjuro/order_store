@@ -17,6 +17,7 @@ import com.vosto.orders.fragments.OrderDetailFragment;
 import com.vosto.orders.services.GetNewOrdersResult;
 import com.vosto.orders.services.GetNewOrdersService;
 import com.vosto.orders.services.GetOrderByIdService;
+import com.vosto.orders.services.MoveToReadyResult;
 import com.vosto.orders.vos.OrderVo;
 import com.vosto.services.OnRestReturn;
 import com.vosto.services.RestResult;
@@ -89,6 +90,19 @@ public class HomeActivity extends VostoBaseActivity  implements OnRestReturn, On
                 listFragment.updateList(this.newOrders);
             }
 
+        }
+
+        if(result instanceof MoveToReadyResult){
+
+            CharSequence text = "Order has been updated";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+            toast.show();
+
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
         }
 
     }

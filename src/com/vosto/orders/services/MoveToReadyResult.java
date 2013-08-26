@@ -16,18 +16,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class MoveToInProgressResult extends RestResult implements IRestResult {
+public class MoveToReadyResult extends RestResult implements IRestResult {
 
     private JSONObject jsonObj;
     private OrderVo order;
     private boolean orderUpdated;
     private String errorMessage;
 
-    public MoveToInProgressResult(){
+    public MoveToReadyResult(){
         super();
     }
 
-    public MoveToInProgressResult(int responseCode, String responseJson){
+    public MoveToReadyResult(int responseCode, String responseJson){
         super(responseCode, responseJson);
     }
 

@@ -14,45 +14,36 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.vosto.R;
 import com.vosto.VostoBaseActivity;
 import com.vosto.HomeActivity;
-import com.vosto.orders.services.MoveToInProgressService;
+import com.vosto.orders.services.CancelOrderService;
 import com.vosto.services.OnRestReturn;
 import com.vosto.services.RestResult;
 
 import com.vosto.orders.vos.OrderVo;
 
-
 /**
  * Created with IntelliJ IDEA.
  * User: macbookpro
- * Date: 2013/05/01
- * Time: 5:48 PM
+ * Date: 2013/08/18
+ * Time: 11:47 AM
  * To change this template use File | Settings | File Templates.
  */
-public class InProgressActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener {
+public class CancelOrderActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener {
 
     private OrderVo order;
-    private int mintime = 35;
-    private String unit = " min";
 
     @Override
     public void onCreate(Bundle args)
     {
         super.onCreate(args);
-        setContentView(R.layout.activity_in_progress);
+        setContentView(R.layout.activity_cancel_order);
 
         this.order = (OrderVo)getIntent().getSerializableExtra("order");
 
-        //set click states for the up and down buttons
-        final EditText timeToReady = (EditText) findViewById(R.id.timeToReady);
-        final EditText posOrderNumber = (EditText) findViewById(R.id.posOrderNumber);
-        timeToReady.clearFocus();
 
-        timeToReady.setText(String.valueOf(mintime));
-
-        Button confMoveProg = (Button)findViewById(R.id.confMoveProg);
-        confMoveProg.setOnClickListener(new OnClickListener() {
+        Button cancelButton = (Button)findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                inProgressPressed(v);
+                cancelledPressed(v);
             }
         });
     }
@@ -64,7 +55,7 @@ public class InProgressActivity extends VostoBaseActivity implements OnRestRetur
     @Override
     public void onRestReturn(RestResult result) {
         // send toast message
-        CharSequence text = "Order has been updated";
+        CharSequence text = "Order has been cancelled";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(getApplicationContext(), text, duration);
@@ -90,20 +81,11 @@ public class InProgressActivity extends VostoBaseActivity implements OnRestRetur
 
     }
 
-    public void inProgressPressed(View v){
-        EditText numberEditText = (EditText)findViewById(R.id.timeToReady);
-        EditText posOrderNumber = (EditText)findViewById(R.id.posOrderNumber);
-
-        String timeToReady = numberEditText.getText().toString().trim();
-        String storeOrderNumber = posOrderNumber.getText().toString().trim();
-
+    public void cancelledPressed(View v){
         OrderVo order = (OrderVo)getIntent().getSerializableExtra("order");
-        Log.d("ORDER", "Order ID " + order.getId());
+        Log.d("ORDER", "Cancelling Order ID " + order.getId());
         //Make the REST call:
-        MoveToInProgressService service = new MoveToInProgressService(this, this, order.getId());
-        service.setOrderId(order.getId());
-        service.setTimeToReady(timeToReady);
-        service.setStoreOrderNumber(storeOrderNumber);
+        CancelOrderService service = new CancelOrderService(this, this, order.getId());
         service.execute();
     }
 

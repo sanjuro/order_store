@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.vosto.R;
 import com.vosto.orders.LineItemAdapter;
+import com.vosto.orders.activities.CancelOrderActivity;
 import com.vosto.orders.activities.InProgressActivity;
+import com.vosto.orders.activities.ReadyActivity;
 import com.vosto.orders.vos.CustomerVo;
 import com.vosto.orders.vos.LineItemVo;
 import com.vosto.orders.vos.OrderVo;
@@ -60,18 +62,31 @@ public class OrderDetailFragment extends Fragment {
             }
         });
 
-        Button cancelOrder = (Button)block.findViewById(R.id.moveOrder);
+        Button readyOrder = (Button)block.findViewById(R.id.readyOrder);
+
+        readyOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ReadyActivity.class);
+                intent.putExtra("order", currentOrder);
+                startActivity(intent);
+            }
+        });
+
+        Button cancelOrder = (Button)block.findViewById(R.id.cancelOrder);
 
         cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InProgressActivity.class);
+                Intent intent = new Intent(getActivity(), CancelOrderActivity.class);
                 intent.putExtra("order", currentOrder);
                 startActivity(intent);
             }
         });
 
         TextView orderNumber = (TextView)block.findViewById(R.id.orderNumber);
+        TextView storeName = (TextView)block.findViewById(R.id.storeName);
+        TextView storeContact = (TextView)block.findViewById(R.id.storeContact);
         TextView orderState  = (TextView)block.findViewById(R.id.orderState);
         TextView dateOrdered = (TextView)block.findViewById(R.id.dateOrdered);
         TextView mainCustomerName = (TextView)block.findViewById(R.id.mainCustomerName);
@@ -98,6 +113,8 @@ public class OrderDetailFragment extends Fragment {
         format.setTimeZone(TimeZone.getTimeZone("GMT+4"));
 
         orderNumber.setText(currentOrder.getNumber());
+        storeName.setText(currentOrder.getStoreName());
+        storeContact.setText(currentOrder.getStoreContact());
         dateOrdered.setText("Ordered at: " + format.format(order.getCreatedAt()));
         dateOrdered.setTypeface(null, Typeface.ITALIC);
 
@@ -118,7 +135,8 @@ public class OrderDetailFragment extends Fragment {
 
         mainCustomerDetail.setText(currentCustomer.getMobileNumber() + " | " + currentCustomer.getEmail());
         mainCustomerName.setText(currentCustomer.getName());
-        totalAmount.setText(currentOrder.getTotal());
+        // totalAmount.setText(currentOrder.getTotal());
+        totalAmount.setText(MoneyUtils.getRandString(currentOrder.getTotal()));
 
         LinearLayout list = (LinearLayout) block.findViewById(R.id.lineItemList);
         for (int i=0; i < currentOrder.getLineItems().length; i++) {

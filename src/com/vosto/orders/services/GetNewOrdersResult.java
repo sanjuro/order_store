@@ -72,8 +72,10 @@ public class GetNewOrdersResult extends RestResult implements IRestResult {
                     currentOrder.setStoreOrderNumber(currentObj.getString("store_order_number"));
                     currentOrder.setTimeToReady(currentObj.getString("time_to_ready"));
                     currentOrder.setCreatedAt(dateFormat.parse(currentObj.getString("created_at")));
-                    currentOrder.setTotal(currentObj.getString("total"));
+                    currentOrder.setTotal(currentObj.getDouble("total"));
                     currentOrder.setStore_id(currentObj.getInt("store_id"));
+                    currentOrder.setStoreName(currentObj.getString("store_name"));
+                    currentOrder.setStoreContact(currentObj.getString("store_contact"));
                     currentOrder.setState(currentObj.getString("state"));
 
                     // Add Customer
@@ -107,7 +109,8 @@ public class GetNewOrdersResult extends RestResult implements IRestResult {
                         lineItems[i] = lineItem;
                     }
 
-                    // Add Address
+                    currentOrder.setLineItems(lineItems);
+
                     // Delivery Address:
                     if(!currentObj.isNull("address")){
                         AddressVo address = new AddressVo();
@@ -122,10 +125,6 @@ public class GetNewOrdersResult extends RestResult implements IRestResult {
                         address.setZipcode(addressObj.getString("zip"));
                         currentOrder.setDeliveryAddress(address);
                     }
-
-
-
-                    currentOrder.setLineItems(lineItems);
 
                     ordersList.add(currentOrder);
                 }

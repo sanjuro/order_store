@@ -11,6 +11,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:paddingTop="15dp"
+                    android:orientation="vertical"
                     android:background="#f67846" >
 
                 <TextView
@@ -26,18 +27,11 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:orientation="vertical" >
 
-                    <TextView
+                <TextView
                             android:id="@+id/dateOrdered"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginRight="10dp"
                             android:layout_marginTop="8dp"
                             android:text="15.00"
                             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -45,9 +39,34 @@
                             android:textSize="20sp"
                             android:textStyle="bold"/>
 
-                </LinearLayout>
 
             </LinearLayout>
+
+    <TextView
+            android:id="@+id/storeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:text="Vosto Store"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginLeft="20dp"
+            android:textColor="#474747"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    <TextView
+            android:id="@+id/storeContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:text="0216964545"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginLeft="20dp"
+            android:textColor="#474747"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     <LinearLayout
             android:layout_width="200dp"
@@ -188,6 +207,23 @@
                     android:textStyle="bold" />
 
             <Button
+                    android:id="@+id/readyOrder"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#f67846"
+                    android:drawableLeft="@drawable/iconprogwhite"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="MOVE TO READY"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+    <Button
                     android:id="@+id/cancelOrder"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"

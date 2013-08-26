@@ -15,7 +15,7 @@ public class GetNewOrdersService extends RestService {
 
     public GetNewOrdersService(OnRestReturn listener, VostoBaseActivity context, String storeId){
         super(SERVER_URL + "/stores/new_orders?authentication_token=" + context.getAuthenticationToken(), RequestMethod.POST, ResultType.GET_NEW_ORDERS, listener, context);
-        Log.d("PREV", "Previous orders url: " + SERVER_URL + "/stores/" + storeId + "/new_orders?authentication_token=" + context.getAuthenticationToken());
+        Log.d("PREV", "Previous orders url: " + SERVER_URL + "/stores/new_orders?authentication_token=" + context.getAuthenticationToken());
     }
 
 }

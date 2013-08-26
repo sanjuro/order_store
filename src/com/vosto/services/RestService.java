@@ -27,6 +27,7 @@ import com.vosto.accounts.services.AuthenticateResult;
 import com.vosto.accounts.services.RegisterDeviceResult;
 import com.vosto.orders.services.GetOrderByIdResult;
 import com.vosto.orders.services.MoveToInProgressResult;
+import com.vosto.orders.services.CancelOrderResult;
 import com.vosto.utils.NetworkUtils;
 
 import android.app.ProgressDialog;

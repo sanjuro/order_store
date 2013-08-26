@@ -41,6 +41,12 @@
                 android:name="com.vosto.orders.activities.InProgressActivity">
         </activity>
         <activity
+                android:name="com.vosto.orders.activities.ReadyActivity">
+        </activity>
+        <activity
+                android:name="com.vosto.orders.activities.CancelOrderActivity">
+        </activity>
+        <activity
              android:name="com.vosto.accounts.activities.SignInActivity">
     √        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
